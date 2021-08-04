@@ -39,7 +39,7 @@ public class TodoController {
 
         TodoEntity result = this.service.add(request);
 
-        System.out.println("result: "+ result);
+        System.out.println("result: " + result);
 
         return ResponseEntity.ok(new TodoResponse(result));
 
@@ -65,6 +65,24 @@ public class TodoController {
         return ResponseEntity.ok(responses);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<TodoResponse> update(@PathVariable Long id, @RequestBody TodoRequest request) {
+        log.info("update");
+        TodoEntity result = this.service.updateById(id, request);
+        return ResponseEntity.ok(new TodoResponse(result));
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteOne(@PathVariable Long id) {
+        log.info("delete One");
+        this.service.deleteOne(id);
+        return ResponseEntity.ok().build();     // ResponseEntity.ok()는 에러
+    }
 
+    @DeleteMapping("/")
+    public ResponseEntity<?> deleteAll() {
+        log.info("delete All");
+        this.service.deleteAll();
+        return ResponseEntity.ok().build();     // ResponseEntity.ok()는 에러
+    }
 }

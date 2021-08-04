@@ -54,5 +54,12 @@ public class TodoService {
     }
 
     //    5	todo 리스트 목록 중 특정 아이템을 삭제
+    public void deleteOne(Long id) {
+        this.todoRepository.deleteById(id);
+    }
+
     //    6	todo 리스트 전체 목록을 삭제
+    public void deleteAll() {
+        this.todoRepository.deleteAll();
+    }
 }
