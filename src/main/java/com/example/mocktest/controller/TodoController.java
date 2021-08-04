@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
@@ -49,6 +52,19 @@ public class TodoController {
 
         return ResponseEntity.ok(new TodoResponse(result));
     }
+
+
+    @GetMapping("/")
+    public ResponseEntity<List<TodoResponse>> readAll() {
+        System.out.println("Read All");
+        List<TodoEntity> result = this.service.searchAll();
+        List<TodoResponse> responses = result.stream()
+                .map(TodoResponse::new)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(responses);
+    }
+
 
 
 }
